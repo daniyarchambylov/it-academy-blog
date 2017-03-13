@@ -19,7 +19,7 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^', include('blog.posts.urls')),
+    url(r'^posts/', include('blog.posts.urls')),
 ]
 
 if settings.DEBUG:
