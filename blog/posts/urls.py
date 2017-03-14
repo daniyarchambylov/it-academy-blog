@@ -3,6 +3,6 @@ from blog.posts import views
 
 urlpatterns = [
     url(r'^$', views.index, name='posts-index'),
-    url(r'^details/$', views.post_detail, name='posts-detail'),
+    url(r'^details/(?P<id>\d+)/$', views.post_detail, name='posts-detail'),
     url(r'^deleted/$', views.deleted_posts, name='posts-deleted'),
 ]

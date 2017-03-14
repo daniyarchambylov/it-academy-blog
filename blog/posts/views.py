@@ -10,8 +10,11 @@ def index(request):
     })
 
 
-def post_detail(request):
-    return render(request, 'posts/detail.html')
+def post_detail(request, id):
+    post = Post.objects.get(id=id)
+    return render(request, 'posts/detail.html', {
+        'post': post,
+    })
 
 
 def deleted_posts(request):

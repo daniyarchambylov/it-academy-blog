@@ -1,0 +1,13 @@
+.post {
+  margin: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.post:last-child {
+  border-bottom: none;
+}
+
+.post .date {
+  font-weight: 200;
+  color: darkgray;
+}

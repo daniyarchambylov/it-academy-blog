@@ -1,14 +1,20 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block page_title %}
-  Post details
+  Post: {{ post.title }}
 {% endblock page_title %}
 
 {% block contents %}
-  <h1>details</h1>
-  <form>
-    <input type="text" id="a" name="a">
-    <input type="text" id="b" name="b">
-    <input type="submit" value="ok" onclick="someFunc();">
-  </form>
+  <div class="post">
+    <h1 class="title">{{ post.title }}</h1>
+    <div class="date">{{ post.created_at }} / Status: {{ post.get_status_display }}</div>
+    <p class="description">
+      {{ post.description }}
+    </p>
+  </div>
 {% endblock contents %}
+
+{% block css %}
+  <link href="{% static 'css/post.css' %}" type="text/css" rel="stylesheet" />
+{% endblock css %}

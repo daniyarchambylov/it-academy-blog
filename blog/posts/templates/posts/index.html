@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block page_title %}
   Posts
@@ -6,12 +7,8 @@
 {% block contents %}
   <ul>
     {% for p in posts %}
-      <li id="{{ p.id }}" class="post">
-        <h2 class="title">{{ p.title }}</h2>
-        <div class="date">{{ p.created_at }}</div>
-        <p class="description">
-          {{ p.description }}
-        </p>
+      <li id="post-{{ p.id }}">
+        <a href="{% url 'posts-detail' p.id %}">{{ p.title }}</a>
       </li>
     {% empty %}
       <li>Nothing to show</li>
