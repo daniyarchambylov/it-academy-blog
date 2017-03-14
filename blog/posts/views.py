@@ -1,8 +1,13 @@
 from django.shortcuts import render
 
+from blog.posts.models import Post
+
 
 def index(request):
-    return render(request, 'posts/index.html')
+    posts = Post.objects.all()
+    return render(request, 'posts/index.html', {
+        'posts': posts,
+    })
 
 
 def post_detail(request):

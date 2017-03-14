@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block page_title %}
+  Posts
+{% endblock page_title %}
+{% block contents %}
+  <ul>
+    {% for p in posts %}
+      <li id="{{ p.id }}" class="post">
+        <h2 class="title">{{ p.title }}</h2>
+        <div class="date">{{ p.created_at }}</div>
+        <p class="description">
+          {{ p.description }}
+        </p>
+      </li>
+    {% empty %}
+      <li>Nothing to show</li>
+    {% endfor %}
+  </ul>
+{% endblock contents %}

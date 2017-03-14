@@ -1,0 +1,24 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  position: relative;
+  display: block;
+  height: 100px;
+  background-color: #ccc;
+  border: 1px solid black;
+}
+
+.nav {
+  list-style-type: none;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+
+.nav li {
+  display: inline;
+  margin: 0 10px;
+}
