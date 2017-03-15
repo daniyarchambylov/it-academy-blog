@@ -1,10 +1,11 @@
 {% extends 'base.html' %}
 
 {% block page_title %}
-  Posts
+  Draft posts
 {% endblock page_title %}
 {% block contents %}
-  <ul>
+  <h1>Draft posts</h1>
+   <ul>
     {% for p in posts %}
       <li id="post-{{ p.id }}">
         <a href="{% url 'posts-detail' p.id %}">{{ p.title }}</a>

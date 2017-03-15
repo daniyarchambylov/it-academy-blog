@@ -18,3 +18,8 @@ class Post(models.Model):
         choices=STATUS_CHOICES,
         default=STATUS_CHOICES[0][0]
     )
+
+    def change_status(self):
+        self.status = 'd' if self.status == 'p' else 'p'
+        self.save()
+

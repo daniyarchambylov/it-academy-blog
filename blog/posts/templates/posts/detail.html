@@ -12,6 +12,21 @@
     <p class="description">
       {{ post.description }}
     </p>
+    <ul>
+      <li>
+        <a href="{% url 'posts-change-status' post.id %}">
+          Mark as
+          {% if post.status == 'd' %}
+            published
+          {% else %}
+            draft
+          {% endif %}
+        </a>
+      </li>
+      <li>
+        <a href="{% url 'post-delete' post.id %}">Delete</a>
+      </li>
+    </ul>
   </div>
 {% endblock contents %}
 

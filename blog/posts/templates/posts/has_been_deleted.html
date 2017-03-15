@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+
+{% block page_title %}Post has been deleted{% endblock page_title %}
+
+{% block contents %}
+  <a href="{% url 'posts-index' %}">View all</a>
+  <p>Post has been deleted</p>
+{% endblock contents %}

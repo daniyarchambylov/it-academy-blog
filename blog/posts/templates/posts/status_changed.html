@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+
+{% block page_title %}Post's status has changed{% endblock page_title %}
+
+{% block contents %}
+  <a href="{% url 'posts-detail' post.id %}">Go back</a>
+  <p>New status: {{ post.get_status_display }}</p>
+{% endblock contents %}
