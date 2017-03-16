@@ -8,4 +8,5 @@ urlpatterns = [
     url(r'^published/$', views.published_posts, name='posts-published'),
     url(r'^change-status/(?P<id>\d+)/$', views.change_status, name='posts-change-status'),
     url(r'^delete/(?P<id>\d+)/$', views.delete_post, name='post-delete'),
+    url(r'^create-post/$', views.create_post, name='posts-create'),
 ]

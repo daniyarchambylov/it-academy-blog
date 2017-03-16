@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block page_title %}Create new post{% endblock page_title %}
+
+{% block contents %}
+  <h1>Create new post</h1>
+  {% if post_created %}
+    <p>New post has been created</p>
+  {% endif %}
+  <form class="form" method="post" action="{% url 'posts-create' %}">
+    {% csrf_token %}
+    <div class="form-row">
+      <label for="id_title" class="form-label">Title:</label>
+      <input type="text" name="post_title" id="id_title" class="form-value" />
+    </div>
+    <div class="form-row">
+      <label for="id_description" class="form-label">Description:</label>
+      <textarea id="id_description" name="post_text" class="form-value"></textarea>
+    </div>
+    <div class="form-row">
+      <div class="form-label">&nbsp;</div>
+      <div class="form-value">
+        <ul class="form-controls">
+          <li><button type="reset">Clear</button></li>
+          <li><button type="submit">Create</button></li>
+        </ul>
+        <div style="clear: both">&nbsp;</div>
+      </div>
+    </div>
+  </form>
+{% endblock contents %}
+{% block css %}
+  <link href="{% static 'css/form.css' %}" type="text/css" rel="stylesheet"/>
+{% endblock css %}

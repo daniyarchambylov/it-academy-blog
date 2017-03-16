@@ -1,0 +1,35 @@
+.form {
+  padding: 10px;
+}
+
+.form-row {
+  margin: 5px 0;
+}
+
+.form-label {
+  display: inline-block;
+  width: 100px;
+}
+
+.form-value {
+  display: inline-block;
+  width: 400px;
+}
+
+ul.form-controls {
+  list-style: none;
+  float: right;
+}
+
+ul.form-controls li {
+  display: inline;
+  margin: 0 3px;
+}
+
+ul.form-controls button {
+  padding: 10px;
+  border-radius: 3px;
+  border: 1px solid #000;
+  background-color: #fff;
+  cursor: pointer;
+}

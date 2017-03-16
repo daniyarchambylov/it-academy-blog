@@ -22,6 +22,7 @@ def post_detail(request, id):
         'post': post,
     })
 
+
 def draft_posts(request):
     posts = Post.objects.filter(status='d')
     return render(request, 'posts/draft_posts.html', {
@@ -54,3 +55,17 @@ def delete_post(request, id):
         'post': post,
     })
 
+
+def create_post(request):
+    if request.method == 'POST':
+        post = Post(title=request.POST['post_title'], description=request.POST['post_text'])
+        post.save()
+        is_created = True
+    else:
+        is_created = False
+
+    context = {
+        'post_created': is_created,
+    }
+
+    return render(request, 'posts/create_post.html', context)
