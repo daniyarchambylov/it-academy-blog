@@ -22,11 +22,6 @@ def post_detail(request, id):
         'post': post,
     })
 
-
-def deleted_posts(request):
-    return render(request, 'posts/deleted_posts.html')
-
-
 def draft_posts(request):
     posts = Post.objects.filter(status='d')
     return render(request, 'posts/draft_posts.html', {
