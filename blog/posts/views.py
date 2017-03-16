@@ -57,15 +57,23 @@ def delete_post(request, id):
 
 
 def create_post(request):
+    error_message = None
+    is_created = False
+
     if request.method == 'POST':
-        post = Post(title=request.POST['post_title'], description=request.POST['post_text'])
-        post.save()
-        is_created = True
-    else:
-        is_created = False
+        title = request.POST['post_title']
+        description = request.POST['post_text']
+
+        if len(title) > 0 and len(description) > 0:
+            post = Post(title=title, description=description)
+            post.save()
+            is_created = True
+        else:
+            error_message = 'title or description is empty'
 
     context = {
         'post_created': is_created,
+        'errors': error_message,
     }
 
     return render(request, 'posts/create_post.html', context)

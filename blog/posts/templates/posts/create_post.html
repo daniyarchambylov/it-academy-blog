@@ -8,6 +8,11 @@
   {% if post_created %}
     <p>New post has been created</p>
   {% endif %}
+
+  {% if errors %}
+    <p class="error-message">{{ errors }}</p>
+  {% endif %}
+
   <form class="form" method="post" action="{% url 'posts-create' %}">
     {% csrf_token %}
     <div class="form-row">

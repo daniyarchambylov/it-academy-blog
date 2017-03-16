@@ -33,3 +33,11 @@ ul.form-controls button {
   background-color: #fff;
   cursor: pointer;
 }
+
+.error-message {
+  margin: 20px;
+  padding: 10px;
+  border: 1px solid red;
+  color: red;
+  border-radius: 10px;
+}
