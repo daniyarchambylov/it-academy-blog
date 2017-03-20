@@ -5,3 +5,18 @@ small {
 .ul-clear-type {
   list-style: none;
 }
+
+.callout.alert {
+  color: #8b0000;
+}
+
+.callout.alert button {
+  color: #8b0000;
+}
+
+.errorlist {
+  font-size: 80%;
+  color: #8b0000;
+  list-style: none;
+  margin-bottom: 0;
+}

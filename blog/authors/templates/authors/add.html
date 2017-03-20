@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block page_title %}
+  Add an author
+{% endblock page_title %}
+
+{% block contents %}
+  <form method="post">
+  {% csrf_token %}
+  {{ form }}
+  <div class="row">
+    <div class="small-2 column">
+      <button class="button" type="submit">Save</button>
+    </div>
+  </div>
+  </form>
+{% endblock contents %}
