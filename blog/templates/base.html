@@ -1,26 +1,54 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="no-js">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{% block page_title %}{% endblock page_title %}</title>
+  <link rel="stylesheet" href="{% static 'vendor/foundation/foundation.min.css' %}">
   <link type="text/css" rel="stylesheet" href="{% static 'css/style.css' %}" />
   {% block css %}{% endblock css %}
 </head>
 <body>
-  <header>
-    <h1>Blog</h1>
-    <ul class="nav">
-      <li><a href="{% url 'posts-index' %}">Posts</a></li>
-      <li><a href="{% url 'posts-create' %}">Create new post</a></li>
-      <li><a href="{% url 'posts-create-form' %}">Create new post with a form</a></li>
-    </ul>
-  </header>
-  <div class="contents">
-    {% block contents %}{% endblock contents %}
+  <!-- Start Top Bar -->
+  <div class="top-bar">
+    <div class="top-bar-left">
+      &nbsp;
+    </div>
+    <div class="top-bar-right">
+      <ul class="menu">
+        <li><a href="{% url 'posts-index' %}">Posts</a></li>
+        <li><a href="{% url 'posts-create' %}">Create new post</a></li>
+        <li><a href="{% url 'posts-create-form' %}">Create new post with a form</a></li>
+      </ul>
+    </div>
   </div>
-  <footer>
-  </footer>
+  <!-- End Top Bar -->
+
+  <div class="callout large primary">
+    <div class="row column text-center">
+      <h1>Our Blog</h1>
+    </div>
+  </div>
+
+  <div class="row" id="content">
+    <div class="medium-8 columns">
+    {% block contents %}{% endblock contents %}
+    </div>
+    <div class="medium-3 columns" data-sticky-container>
+      <div class="sticky" data-sticky data-anchor="content">
+{#        {% include 'incs/categories-links.html' %}#}
+{#        {% include 'incs/author-links.html' %}#}
+      </div>
+    </div>
+  </div>
+{#  {% include 'incs/pagination.html' %}#}
+  <script src="{% static 'vendor/jquery.js' %}"></script>
+  <script src="{% static 'vendor/what-input.js' %}"></script>
+  <script src="{% static 'vendor/foundation/foundation.min.js' %}"></script>
+  <script>
+    $(document).foundation();
+  </script>
   <script src="{% static 'js/script.js' %}"></script>
 </body>
 </html>

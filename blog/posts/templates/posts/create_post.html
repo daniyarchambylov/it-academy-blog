@@ -10,7 +10,12 @@
   {% endif %}
 
   {% if errors %}
-    <p class="error-message">{{ errors }}</p>
+    <div class="alert callout" data-closable>
+      <p>{{ errors }}</p>
+      <button class="close-button" aria-label="Dismiss" type="button" data-close>
+      <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
   {% endif %}
 
   <form class="form" method="post" action="{% url 'posts-create' %}">
@@ -26,15 +31,14 @@
     <div class="form-row">
       <div class="form-label">&nbsp;</div>
       <div class="form-value">
-        <ul class="form-controls">
-          <li><button type="reset">Clear</button></li>
-          <li><button type="submit">Create</button></li>
+        <ul class="form-controls ul-clear-type">
+          <li><button type="reset" class="alert button">Clear</button></li>
+          <li><button type="submit" class="button">Create</button></li>
         </ul>
-        <div style="clear: both">&nbsp;</div>
       </div>
     </div>
   </form>
 {% endblock contents %}
 {% block css %}
-  <link href="{% static 'css/form.css' %}" type="text/css" rel="stylesheet"/>
+  <link href="{% static 'css/form.css' %}" type="text/css" rel="stylesheet" />
 {% endblock css %}
