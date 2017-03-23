@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.shortcuts import render
 
 from blog.posts.forms import PostForm
@@ -93,9 +94,9 @@ def create_post_with_forms(request):
             post = Post(title=title, description=description)
             post.save()
 
-            message = 'create post'
+            messages.success(request, 'New post has been created.')
         else:
-            message = 'There is an error in your form inputs'
+            messages.error('There is an error in your form inputs')
     else:
         form = PostForm()
 

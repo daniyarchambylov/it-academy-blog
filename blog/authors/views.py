@@ -17,13 +17,22 @@ def authors_add(request):
 
     if request.method == 'POST':
         if form.is_valid():
-            form.save()
+            author = form.save()
 
-            messages.success(request, 'New author has been added.')
+            messages.success(request, 'New author has been added: {}.'.format(author))
 
             return redirect(reverse('authors-list'))
+        else:
+            # print form.errors
+            # {
+            #   'email': ['error1', 'error2'],
+            #   'date_of_birth': ['error message'],
+            #   '__all__': ['errors',]
+            # }
+            default_error = 'Something went wrong. Please try again.'
+            error_message = form.errors['__all__'] if '__all__' in form.errors else default_error
 
-        messages.error(request, 'Something went wrong. Please try again.')
+        messages.error(request, error_message, extra_tags='alert')
 
     return render(request, 'authors/add.html', locals())
 
@@ -41,7 +50,8 @@ def author_edit_email(request, author_id):
     if request.method == 'POST':
         if form.is_valid():
             form.save()
+            messages.success(request, 'Email has been changed.', extra_tags='primary')
             return redirect(reverse('authors-details', args=[author_id]))
         else:
-            messages.error / (request, 'Something went wrong. Please try again.')
+            messages.error(request, 'Something went wrong. Please try again.', extra_tags='alert')
     return render(request, 'authors/edit-email.html', locals())

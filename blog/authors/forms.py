@@ -1,3 +1,6 @@
+import datetime
+
+import re
 from django import forms
 
 from blog.authors.models import GENDER_CHOICES, Author
@@ -15,6 +18,31 @@ class AddAuthorForm(forms.Form):
         if Author.objects.filter(email=email).exists():
             raise forms.ValidationError('Author with email: "{}" already exists'.format(email))
         return email
+
+    def clean_date_of_birth(self):
+        db = self.cleaned_data['date_of_birth']
+        date = datetime.date(1960, 01, 01)
+        if db < date:
+            raise forms.ValidationError('Date of birth can not be less than 1960-01-01.')
+        return db
+
+    def clean(self):
+        cd = super(AddAuthorForm, self).clean()
+        errors = []
+
+        test = re.match(r'^[A-Z][a-z]+$', cd['first_name'].strip()) and \
+               re.match(r'^[A-Z][a-z]+$', cd['last_name'].strip())
+
+        if not test:
+            errors.append('First name or last name are incorrect.')
+
+        if cd['gender'] == 'm':
+            errors.append('Gender can not be equal to "m"')
+
+        if len(errors) > 0:
+            raise forms.ValidationError(errors)
+
+        return cd
 
     def save(self):
         cd = self.cleaned_data

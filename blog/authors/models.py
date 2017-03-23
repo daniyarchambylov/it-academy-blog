@@ -17,3 +17,6 @@ class Author(models.Model):
 
     def get_full_name(self):
         return '{} {}'.format(self.first_name, self.last_name)
+
+    def __unicode__(self):
+        return self.get_full_name()
