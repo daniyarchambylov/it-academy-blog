@@ -37,7 +37,7 @@
     {% if messages %}
       <ul class="messages">
         {% for message in messages %}
-          <li class="{{ message.tags }} callout" data-closable>
+          <li class="{{ message.tags }} callout" data-closable="fade-out">
             {{ message }}
             <button class="close-button" aria-label="Dismiss" type="button" data-close>
               <span aria-hidden="true">&times;</span>
