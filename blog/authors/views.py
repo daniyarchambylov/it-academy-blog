@@ -1,4 +1,6 @@
-from django.shortcuts import render
+from django.contrib import messages
+from django.shortcuts import render, redirect
+from django.urls import reverse
 
 from blog.authors.forms import AddAuthorForm, EditAuthorEmailForm
 from blog.authors.models import Author
@@ -16,15 +18,19 @@ def authors_add(request):
     if request.method == 'POST':
         if form.is_valid():
             form.save()
-        else:
-            print 'error'
+
+            messages.success(request, 'New author has been added.')
+
+            return redirect(reverse('authors-list'))
+
+        messages.error(request, 'Something went wrong. Please try again.')
 
     return render(request, 'authors/add.html', locals())
 
 
-def author_detail(request, author_id):
-    author = Author.objects(id=author_id)
-    return render(request, 'authors/add.html', locals())
+def authors_details(request, author_id):
+    author = Author.objects.get(id=author_id)
+    return render(request, 'authors/details.html', locals())
 
 
 def author_edit_email(request, author_id):
@@ -35,9 +41,7 @@ def author_edit_email(request, author_id):
     if request.method == 'POST':
         if form.is_valid():
             form.save()
+            return redirect(reverse('authors-details', args=[author_id]))
         else:
-            print 'error'
-    return render(request, 'authors/add.html', locals())
-
-
-
+            messages.error / (request, 'Something went wrong. Please try again.')
+    return render(request, 'authors/edit-email.html', locals())

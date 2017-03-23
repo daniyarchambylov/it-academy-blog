@@ -2,53 +2,67 @@
 <!DOCTYPE html>
 <html lang="en" class="no-js">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>{% block page_title %}{% endblock page_title %}</title>
   <link rel="stylesheet" href="{% static 'vendor/foundation/foundation.min.css' %}">
-  <link type="text/css" rel="stylesheet" href="{% static 'css/style.css' %}" />
+  <link type="text/css" rel="stylesheet" href="{% static 'css/style.css' %}"/>
   {% block css %}{% endblock css %}
 </head>
 <body>
-  <!-- Start Top Bar -->
-  <div class="top-bar">
-    <div class="top-bar-left">
-      &nbsp;
-    </div>
-    <div class="top-bar-right">
-      <ul class="menu">
-        <li><a href="{% url 'posts-index' %}">Posts</a></li>
-        <li><a href="{% url 'posts-create' %}">Create new post</a></li>
-        <li><a href="{% url 'posts-create-form' %}">Create new post with a form</a></li>
+<!-- Start Top Bar -->
+<div class="top-bar">
+  <div class="top-bar-left">
+    &nbsp;
+  </div>
+  <div class="top-bar-right">
+    <ul class="menu">
+      <li><a href="{% url 'posts-index' %}">Posts</a></li>
+      <li><a href="{% url 'posts-create' %}">Create new post</a></li>
+      <li><a href="{% url 'posts-create-form' %}">Create new post with a form</a></li>
+    </ul>
+  </div>
+</div>
+<!-- End Top Bar -->
+
+<div class="callout large primary">
+  <div class="row column text-center">
+    <h1>Our Blog</h1>
+  </div>
+</div>
+
+<div class="row" id="content">
+  <div class="medium-8 columns">
+
+    {% if messages %}
+      <ul class="messages">
+        {% for message in messages %}
+          <li class="alert callout" data-closable>
+            {{ message }}
+            <button class="close-button" aria-label="Dismiss" type="button" data-close>
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </li>
+        {% endfor %}
       </ul>
-    </div>
-  </div>
-  <!-- End Top Bar -->
+    {% endif %}
 
-  <div class="callout large primary">
-    <div class="row column text-center">
-      <h1>Our Blog</h1>
-    </div>
-  </div>
-
-  <div class="row" id="content">
-    <div class="medium-8 columns">
     {% block contents %}{% endblock contents %}
-    </div>
-    <div class="medium-3 columns" data-sticky-container>
-      <div class="sticky" data-sticky data-anchor="content">
-{#        {% include 'incs/categories-links.html' %}#}
-{#        {% include 'incs/author-links.html' %}#}
-      </div>
+  </div>
+  <div class="medium-3 columns" data-sticky-container>
+    <div class="sticky" data-sticky data-anchor="content">
+      {#        {% include 'incs/categories-links.html' %}#}
+      {#        {% include 'incs/author-links.html' %}#}
     </div>
   </div>
+</div>
 {#  {% include 'incs/pagination.html' %}#}
-  <script src="{% static 'vendor/jquery.js' %}"></script>
-  <script src="{% static 'vendor/what-input.js' %}"></script>
-  <script src="{% static 'vendor/foundation/foundation.min.js' %}"></script>
-  <script>
+<script src="{% static 'vendor/jquery.js' %}"></script>
+<script src="{% static 'vendor/what-input.js' %}"></script>
+<script src="{% static 'vendor/foundation/foundation.min.js' %}"></script>
+<script>
     $(document).foundation();
-  </script>
-  <script src="{% static 'js/script.js' %}"></script>
+</script>
+<script src="{% static 'js/script.js' %}"></script>
 </body>
 </html>

@@ -14,3 +14,6 @@ class Author(models.Model):
     email = models.EmailField(unique=True)
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
     date_of_birth = models.DateField(auto_now=True)
+
+    def get_full_name(self):
+        return '{} {}'.format(self.first_name, self.last_name)

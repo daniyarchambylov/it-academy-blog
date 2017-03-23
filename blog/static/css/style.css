@@ -20,3 +20,6 @@ small {
   list-style: none;
   margin-bottom: 0;
 }
+.messages {
+  list-style: none;
+}
