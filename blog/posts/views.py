@@ -1,5 +1,6 @@
 from django.contrib import messages
-from django.shortcuts import render, redirect
+from django.http import Http404
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.views.decorators.http import require_POST
 
@@ -21,7 +22,7 @@ def index(request):
 
 
 def post_detail(request, id):
-    post = Post.objects.get(id=id)
+    post = get_object_or_404(Post, id=id)
 
     delete_form = PostDeleteForm(initial={'post': id})
 
