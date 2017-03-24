@@ -12,6 +12,7 @@ class AddAuthorForm(forms.Form):
     email = forms.EmailField()
     date_of_birth = forms.DateField()
     gender = forms.ChoiceField(choices=GENDER_CHOICES)
+    post = forms.IntegerField(widget=forms.HiddenInput, required=False)
 
     def clean_email(self):
         email = self.cleaned_data['email']
