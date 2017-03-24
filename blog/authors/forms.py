@@ -61,6 +61,12 @@ class EditAuthorEmailForm(forms.Form):
     author = forms.IntegerField(widget=forms.HiddenInput)
     email = forms.EmailField()
 
+    def clean_author(self):
+        author = self.cleaned_data['author']
+        if Author.objects.filter(id=author).exists():
+            return author
+        raise forms.ValidationError('User: "{}" does not exist'.format(author))
+
     def clean_email(self):
         email = self.cleaned_data['email']
         if Author.objects.filter(email=email).exists():
