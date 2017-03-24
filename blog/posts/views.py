@@ -1,7 +1,9 @@
 from django.contrib import messages
-from django.shortcuts import render
+from django.http.response import HttpResponse
+from django.shortcuts import render, redirect
+from django.urls import reverse
 
-from blog.posts.forms import PostForm
+from blog.posts.forms import PostForm, PostDeleteForm
 from blog.posts.models import Post
 
 
@@ -20,8 +22,12 @@ def index(request):
 
 def post_detail(request, id):
     post = Post.objects.get(id=id)
+
+    delete_form = PostDeleteForm(initial={'post': id})
+
     return render(request, 'posts/detail.html', {
         'post': post,
+        'delete_form': delete_form,
     })
 
 
@@ -50,12 +56,17 @@ def change_status(request, id):
 
 
 def delete_post(request, id):
-    post = Post.objects.get(id=id)
-    post.delete()
+    if request.method == 'POST':
+        form = PostDeleteForm(request.POST)
+        if form.is_valid():
+            form.delete()
+            messages.success(request, 'Post %s has been deleted.' % id)
+            return redirect(reverse('posts-index'))
 
-    return render(request, 'posts/has_been_deleted.html', {
-        'post': post,
-    })
+        messages.error(request, 'Could not delete post %s' % id, extra_tags='alert')
+        return redirect(reverse('posts-detail', args=[id, ]))
+
+    return HttpResponse('Method not allowed', status=405)
 
 
 def create_post(request):

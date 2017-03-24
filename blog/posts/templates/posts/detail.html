@@ -24,7 +24,13 @@
         </a>
       </li>
       <li>
-        <a href="{% url 'post-delete' post.id %}">Delete</a>
+        <form method="post" action="{% url 'post-delete' post.id %}">
+          {% csrf_token %}
+          {{ delete_form }}
+          <div class="row">
+            <button type="submit" class="primary button">Delete</button>
+          </div>
+        </form>
       </li>
     </ul>
   </div>
