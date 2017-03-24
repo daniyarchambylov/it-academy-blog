@@ -1,7 +1,7 @@
 from django.contrib import messages
-from django.http.response import HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse
+from django.views.decorators.http import require_POST
 
 from blog.posts.forms import PostForm, PostDeleteForm
 from blog.posts.models import Post
@@ -46,27 +46,27 @@ def published_posts(request):
     })
 
 
+@require_POST
 def change_status(request, id):
     post = Post.objects.get(id=id)
     post.change_status()
+    return redirect(reverse('posts-detail', args=[id, ]))
 
-    return render(request, 'posts/status_changed.html', {
-        'post': post,
-    })
+# from django.views.decorators.http import require_POST, require_GET, require_http_methods,
+# @require_POST
+# @require_GET
+# validate methods DELETE or PUT @require_http_methods(['DELETE', 'PUT'])
 
-
+@require_POST
 def delete_post(request, id):
-    if request.method == 'POST':
-        form = PostDeleteForm(request.POST)
-        if form.is_valid():
-            form.delete()
-            messages.success(request, 'Post %s has been deleted.' % id)
-            return redirect(reverse('posts-index'))
+    form = PostDeleteForm(request.POST)
+    if form.is_valid():
+        form.delete()
+        messages.success(request, 'Post %s has been deleted.' % id)
+        return redirect(reverse('posts-index'))
 
-        messages.error(request, 'Could not delete post %s' % id, extra_tags='alert')
-        return redirect(reverse('posts-detail', args=[id, ]))
-
-    return HttpResponse('Method not allowed', status=405)
+    messages.error(request, 'Could not delete post %s' % id, extra_tags='alert')
+    return redirect(reverse('posts-detail', args=[id, ]))
 
 
 def create_post(request):
