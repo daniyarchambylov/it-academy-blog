@@ -39,6 +39,7 @@ def authors_add(request):
 
 def authors_details(request, author_id):
     author = Author.objects.get(id=author_id)
+    posts = author.post_set.all()
     return render(request, 'authors/details.html', locals())
 
 

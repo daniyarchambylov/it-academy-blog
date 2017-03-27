@@ -12,6 +12,9 @@
     <p class="description">
       {{ post.description }}
     </p>
+    <div>
+      Author: <strong>{{ author.get_full_name }}</strong>
+    </div>
     <ul>
       <li>
         <a href="{% url 'posts-change-status' post.id %}">

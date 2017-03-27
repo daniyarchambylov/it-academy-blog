@@ -7,7 +7,7 @@
     <li>
       <div class="row">
         <div class="column small-2">Full name:</div>
-        <div class="column small-10">{{ a.get_full_name }}</div>
+        <div class="column small-10"><a href="{% url 'authors-details' a.id %}">{{ a.get_full_name }}</a></div>
       </div>
       <div class="row">
         <div class="column small-2">Email:</div>

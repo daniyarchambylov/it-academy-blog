@@ -19,5 +19,16 @@
     <div class="column small-4">Date of birth:</div>
     <div class="column small-8">{{ author.date_of_birth }}</div>
   </div>
+  <div class="row">
+    <p>Posts</p>
+    <ul>
+      {% for p in posts %}
+        <li>{{ p.title }}</li>
+      {% empty %}
+        <li>{{ author.get_full_name }} has no posts.</li>
+      {% endfor %}
+    </ul>
+  </div>
+
 
 {% endblock contents %}

@@ -22,11 +22,12 @@ def index(request):
 
 def post_detail(request, id):
     post = get_object_or_404(Post, id=id)
-
+    author = post.author
     delete_form = PostDeleteForm(initial={'post': id})
 
     return render(request, 'posts/detail.html', {
         'post': post,
+        'author': author,
         'delete_form': delete_form,
     })
 
