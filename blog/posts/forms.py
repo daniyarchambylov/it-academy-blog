@@ -18,6 +18,21 @@ class PostForm(forms.Form):
         return post
 
 
+class EditPostForm(forms.Form):
+    post = forms.IntegerField(widget=forms.HiddenInput)
+    title = forms.CharField(min_length=10)
+    description = forms.CharField(widget=forms.Textarea)
+    author = forms.ModelChoiceField(queryset=Author.objects.all())
+
+    def save(self):
+        post = Post.objects.get(id=self.cleaned_data['post'])
+        post.title = self.cleaned_data['title']
+        post.description = self.cleaned_data['description']
+        post.author = self.cleaned_data['author']
+        post.save()
+        return post
+
+
 class PostDeleteForm(forms.Form):
     post = forms.IntegerField(widget=forms.HiddenInput)
 

@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.views.decorators.http import require_POST
 
-from blog.posts.forms import PostForm, PostDeleteForm
+from blog.posts.forms import PostForm, PostDeleteForm, EditPostForm
 from blog.posts.models import Post
 
 
@@ -91,6 +91,26 @@ def create_post(request):
     }
 
     return render(request, 'posts/create_post.html', context)
+
+
+def update_post(request, post_id):
+    post = get_object_or_404(Post, id=post_id)
+    form = EditPostForm(request.POST or None, initial={
+        'post': post.id,
+        'title': post.title,
+        'description': post.description,
+        'author': post.author,
+    })
+
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Post has been updated')
+            return redirect(reverse('posts-detail', args=[post.id]))
+        else:
+            messages.error(request, 'Could not update post', extra_tags='alert')
+
+    return render(request, 'posts/update_post.html', locals())
 
 
 def create_post_with_forms(request):

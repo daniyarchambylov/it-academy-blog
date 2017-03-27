@@ -27,6 +27,11 @@
         </a>
       </li>
       <li>
+        <a href="{% url 'posts-update' post.id %}">
+          Update details
+        </a>
+      </li>
+      <li>
         <form method="post" action="{% url 'post-delete' post.id %}">
           {% csrf_token %}
           {{ delete_form }}
