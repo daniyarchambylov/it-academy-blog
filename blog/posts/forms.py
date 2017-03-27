@@ -1,11 +1,21 @@
 from django import forms
 
+from blog.authors.models import Author
 from blog.posts.models import Post
 
 
 class PostForm(forms.Form):
     title = forms.CharField(min_length=10)
     description = forms.CharField(widget=forms.Textarea)
+    author = forms.ModelChoiceField(queryset=Author.objects.all())
+
+    def save(self):
+        title = self.cleaned_data['title']
+        description = self.cleaned_data['description']
+        author = self.cleaned_data['author']
+        post = Post(title=title, description=description, author=author)
+        post.save()
+        return post
 
 
 class PostDeleteForm(forms.Form):

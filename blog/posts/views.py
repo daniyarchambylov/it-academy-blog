@@ -99,13 +99,9 @@ def create_post_with_forms(request):
         form = PostForm(request.POST)
 
         if form.is_valid():
-            title = form.cleaned_data['title']
-            description = form.cleaned_data['description']
-
-            post = Post(title=title, description=description)
-            post.save()
-
+            form.save()
             messages.success(request, 'New post has been created.')
+            return redirect('posts-index')
         else:
             messages.error('There is an error in your form inputs')
     else:

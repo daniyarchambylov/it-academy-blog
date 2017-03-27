@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 
 from django.db import models
 
+from blog.authors.models import Author
 
 STATUS_CHOICES = (
     ('d', 'Draft'),
@@ -18,6 +19,7 @@ class Post(models.Model):
         choices=STATUS_CHOICES,
         default=STATUS_CHOICES[0][0]
     )
+    author = models.ForeignKey(Author, null=True, blank=True)
 
     def change_status(self):
         self.status = 'd' if self.status == 'p' else 'p'
