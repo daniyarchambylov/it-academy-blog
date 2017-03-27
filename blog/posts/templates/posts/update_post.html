@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block page_title %}Update post{% endblock page_title %}
+
+{% block contents %}
+  <h1>Update post</h1>
+
+  <form class="form" method="post" action="{% url 'posts-update' post.id %}">
+    {{ form }}
+    <div class="form-row">
+      <div class="form-label">&nbsp;</div>
+      <div class="form-value">
+        <ul class="form-controls ul-clear-type">
+          <li><button class="button" type="submit">Update</button></li>
+        </ul>
+      </div>
+    </div>
+
+    {% csrf_token %}
+  </form>
+{% endblock contents %}
+{% block css %}
+  <link href="{% static 'css/form.css' %}" type="text/css" rel="stylesheet"/>
+{% endblock css %}
