@@ -1,8 +1,8 @@
 from django.contrib import messages
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 
-from blog.authors.forms import AddAuthorForm, EditAuthorEmailForm
+from blog.authors.forms import AddAuthorForm, EditAuthorEmailForm, AddAuthorModelForm, EditAuthorEmailModelForm
 from blog.authors.models import Author
 
 
@@ -13,7 +13,7 @@ def authors_list(request):
 
 
 def authors_add(request):
-    form = AddAuthorForm(request.POST or None)
+    form = AddAuthorModelForm(request.POST or None)
 
     if request.method == 'POST':
         if form.is_valid():
@@ -40,13 +40,17 @@ def authors_add(request):
 def authors_details(request, author_id):
     author = Author.objects.get(id=author_id)
     posts = author.post_set.all()
+    # posts = Post.objects.filter(author=author)
     return render(request, 'authors/details.html', locals())
 
 
 def author_edit_email(request, author_id):
-    form = EditAuthorEmailForm(request.POST or None, initial={
-        'author': author_id,
-    })
+    author = get_object_or_404(Author, id=author_id)
+    form = EditAuthorEmailModelForm(request.POST or None, instance=author)
+
+    # form = EditAuthorEmailForm(request.POST or None, initial={
+    #     'author': author_id,
+    # })
 
     if request.method == 'POST':
         if form.is_valid():

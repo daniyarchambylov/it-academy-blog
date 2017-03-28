@@ -6,19 +6,22 @@ from django import forms
 from blog.authors.models import GENDER_CHOICES, Author
 
 
+class AddAuthorModelForm(forms.ModelForm):
+    class Meta:
+        model = Author
+        fields = ['first_name', 'last_name', 'email', 'date_of_birth', 'gender']
+        error_messages = {
+            'unique': 'Email bla bla bla'
+        }
+
+
+
 class AddAuthorForm(forms.Form):
     first_name = forms.CharField()
     last_name = forms.CharField()
     email = forms.EmailField()
     date_of_birth = forms.DateField()
     gender = forms.ChoiceField(choices=GENDER_CHOICES)
-    post = forms.IntegerField(widget=forms.HiddenInput, required=False)
-
-    def clean_email(self):
-        email = self.cleaned_data['email']
-        if Author.objects.filter(email=email).exists():
-            raise forms.ValidationError('Author with email: "{}" already exists'.format(email))
-        return email
 
     def clean_date_of_birth(self):
         db = self.cleaned_data['date_of_birth']
@@ -56,6 +59,12 @@ class AddAuthorForm(forms.Form):
         author.save()
 
         return author
+
+
+class EditAuthorEmailModelForm(forms.ModelForm):
+    class Meta:
+        model = Author
+        fields = ['email']
 
 
 class EditAuthorEmailForm(forms.Form):
