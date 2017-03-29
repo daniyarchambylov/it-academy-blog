@@ -1,7 +1,20 @@
 from django import forms
 
 from blog.authors.models import Author
+from blog.categories.models import Category
 from blog.posts.models import Post
+
+
+class PostModelForm(forms.ModelForm):
+
+    class Meta:
+        model = Post
+        # fields = '__all__'
+        exclude = ['status']
+        widgets = {
+            'categories': forms.CheckboxSelectMultiple()
+        }
+
 
 
 class PostForm(forms.Form):

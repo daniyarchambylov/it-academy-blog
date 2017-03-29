@@ -11,4 +11,5 @@ urlpatterns = [
     url(r'^create-post/$', views.create_post, name='posts-create'),
     url(r'^update-post/(?P<post_id>\d+)/$', views.update_post, name='posts-update'),
     url(r'^create-post-form/$', views.create_post_with_forms, name='posts-create-form'),
+    url(r'^create-post2/$', views.create_post_with_modelforms, name='posts-create-model-form'),
 ]

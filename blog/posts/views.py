@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.views.decorators.http import require_POST
 
-from blog.posts.forms import PostForm, PostDeleteForm, EditPostForm
+from blog.posts.forms import PostForm, PostDeleteForm, EditPostForm, PostModelForm
 from blog.posts.models import Post
 
 
@@ -134,3 +134,15 @@ def create_post_with_forms(request):
     }
 
     return render(request, 'posts/create_post_form.html', context)
+
+def create_post_with_modelforms(request):
+    form = PostModelForm(request.POST or None)
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'New post has been created.')
+            return redirect('posts-index')
+        else:
+            messages.error(request, 'There is an error in your form inputs', extra_tags='alert')
+
+    return render(request, 'posts/create_post_form.html', locals())
