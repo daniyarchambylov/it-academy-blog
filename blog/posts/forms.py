@@ -6,11 +6,10 @@ from blog.posts.models import Post
 
 
 class PostModelForm(forms.ModelForm):
-
     class Meta:
         model = Post
-        # fields = '__all__'
-        exclude = ['status']
+        fields = ['title', 'description', 'author', 'categories']
+        # exclude = ['status']
         widgets = {
             'categories': forms.CheckboxSelectMultiple()
         }

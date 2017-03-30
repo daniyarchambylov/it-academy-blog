@@ -9,6 +9,11 @@
   <div class="post">
     <h1 class="title">{{ post.title }}</h1>
     <div class="date">{{ post.created_at }} / Status: {{ post.get_status_display }}</div>
+    <ul>
+      {% for c in post.categories.all %}
+        <li>{{ c }}</li>
+      {% endfor %}
+    </ul>
     <p class="description">
       {{ post.description }}
     </p>
