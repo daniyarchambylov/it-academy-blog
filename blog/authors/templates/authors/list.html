@@ -3,6 +3,19 @@
 {% block page_title %}Authors{% endblock page_title %}
 
 {% block contents %}
+  <form>
+    <div class="row">
+      <div class="columns">
+        <div class="input-group">
+          <span class="input-group-label">Category name</span>
+          <input class="input-group-field" type="text" name="name">
+          <div class="input-group-button">
+            <input type="submit" class="button" value="Submit">
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
   {% for a in authors %}
     <li>
       <div class="row">

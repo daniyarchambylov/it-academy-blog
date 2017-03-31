@@ -7,7 +7,11 @@ from blog.authors.models import Author
 
 
 def authors_list(request):
+    category_name = request.GET.get('name')
     authors = Author.objects.all()
+
+    if category_name:
+        authors = authors.filter(post__categories__name__istartswith=category_name).distinct()
 
     return render(request, 'authors/list.html', locals())
 
