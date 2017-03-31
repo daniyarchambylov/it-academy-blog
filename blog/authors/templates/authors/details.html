@@ -8,6 +8,11 @@
   <h1>{{ author.get_full_name }}</h1>
 
   <div class="row">
+    {% if author.image %}
+      <img src="{{ MEDIA_URL }}{{ author.image }}">
+    {% endif %}
+  </div>
+  <div class="row">
     <div class="column small-4">Email:</div>
     <div class="column small-8">{{ author.email }}</div>
   </div>

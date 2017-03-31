@@ -17,7 +17,7 @@ def authors_list(request):
 
 
 def authors_add(request):
-    form = AddAuthorModelForm(request.POST or None)
+    form = AddAuthorModelForm(request.POST or None, request.FILES or None)
 
     if request.method == 'POST':
         if form.is_valid():

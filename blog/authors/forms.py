@@ -9,10 +9,21 @@ from blog.authors.models import GENDER_CHOICES, Author
 class AddAuthorModelForm(forms.ModelForm):
     class Meta:
         model = Author
-        fields = ['first_name', 'last_name', 'email', 'date_of_birth', 'gender']
+        fields = [
+            'first_name',
+            'last_name',
+            'email',
+            'date_of_birth',
+            'gender',
+            'image',
+        ]
         error_messages = {
             'unique': 'Email bla bla bla'
         }
+
+    def __init__(self, *args, **kwargs):
+        super(AddAuthorModelForm, self).__init__(*args, **kwargs)
+        self.fields['image'].required = True
 
 
 
