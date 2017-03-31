@@ -12,4 +12,5 @@ urlpatterns = [
     url(r'^update-post/(?P<post_id>\d+)/$', views.update_post, name='posts-update'),
     url(r'^create-post-form/$', views.create_post_with_forms, name='posts-create-form'),
     url(r'^create-post2/$', views.create_post_with_modelforms, name='posts-create-model-form'),
+    url(r'^filtered/$', views.filter_posts_view, name='posts-filter'),
 ]

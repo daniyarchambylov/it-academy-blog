@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block page_title %}
+  Posts
+{% endblock page_title %}
+{% block contents %}
+  <form>
+    <div class="row">
+      <div class="columns">
+        <div class="input-group">
+          <span class="input-group-label">{{ form.days.label }}</span>
+          <input class="input-group-field" type="number" name="days">
+          <div class="input-group-button">
+            <input type="submit" class="button" value="Submit">
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  <ul class="ul-clear-type">
+    {% for p in posts %}
+      <li id="post-{{ p.id }}" class="blog-post">
+        {% include 'posts/incs/post.html' with post=p %}
+      </li>
+    {% empty %}
+      <li>Nothing to show</li>
+    {% endfor %}
+  </ul>
+{% endblock contents %}
+{% block css %}
+  <style>
+    .blog-post {
+      margin: 20px 0;
+      border-bottom: 1px solid #cccccc;
+    }
+
+    .blog-post:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+    }
+  </style>
+{% endblock css %}

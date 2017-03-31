@@ -1,3 +1,5 @@
+from datetime import datetime, timedelta
+
 from django import forms
 
 from blog.authors.models import Author
@@ -57,3 +59,14 @@ class PostDeleteForm(forms.Form):
     def delete(self):
         post = Post.objects.get(id=self.cleaned_data['post'])
         post.delete()
+
+
+class FilterPostForm(forms.Form):
+    days = forms.IntegerField(required=False)
+
+    def filter(self, queryset):
+        days = self.cleaned_data.get('days')
+        if days is not None:
+            dt = datetime.now() - timedelta(days=days)
+            queryset = queryset.filter(created_at__gt=dt)
+        return queryset

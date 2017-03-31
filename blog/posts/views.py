@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.views.decorators.http import require_POST
 
-from blog.posts.forms import PostForm, PostDeleteForm, EditPostForm, PostModelForm
+from blog.posts.forms import PostForm, PostDeleteForm, EditPostForm, PostModelForm, FilterPostForm
 from blog.posts.models import Post
 
 
@@ -146,3 +146,11 @@ def create_post_with_modelforms(request):
             messages.error(request, 'There is an error in your form inputs', extra_tags='alert')
 
     return render(request, 'posts/create_post_form.html', locals())
+
+
+def filter_posts_view(request):
+    form = FilterPostForm(request.GET or None)
+    posts = Post.objects.all()
+    if form.is_valid():
+        posts = form.filter(posts)
+    return render(request, 'posts/filter_posts.html', locals())
