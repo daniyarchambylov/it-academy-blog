@@ -53,7 +53,7 @@
   <div class="medium-3 columns" data-sticky-container>
     <div class="sticky" data-sticky data-anchor="content">
       {% if blog_categories %}
-        {% include 'categories/incs/categories.html' %}
+        {% include 'categories/incs/categories.html' with categories=blog_categories %}
       {% endif %}
     </div>
   </div>
