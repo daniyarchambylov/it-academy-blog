@@ -52,6 +52,14 @@
   </div>
   <div class="medium-3 columns" data-sticky-container>
     <div class="sticky" data-sticky data-anchor="content">
+      {% if blog_categories %}
+        <ul>
+          {% for c in blog_categories %}
+            <li id="category-{{ c.id }}"><a href="#">{{ c.name }}</a></li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+
       {#        {% include 'incs/categories-links.html' %}#}
       {#        {% include 'incs/author-links.html' %}#}
     </div>
