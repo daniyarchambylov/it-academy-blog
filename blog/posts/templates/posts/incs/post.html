@@ -1,7 +1,12 @@
+{% load post_word_count %}
+
 <h3><a href="{% url 'posts-detail' p.id %}">{{ post.title }}</a>
-  <small>{{ post.created_at }}</small>
+  <small>{{ post.created_at|timesince }}</small>
 </h3>
 <p>{{ post.description }}</p>
+<div>
+  Count: {{ post.description|my_word_count }}
+</div>
 <div class="callout">
   <ul class="menu simple">
     <li><a href="#">Author: {{ p.author }}</a></li>

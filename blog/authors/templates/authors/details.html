@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load my_tags  static %}
 
 {% block page_title %}
   Author details
@@ -8,9 +9,18 @@
   <h1>{{ author.get_full_name }}</h1>
 
   <div class="row">
-    {% if author.image %}
-      <img src="{{ MEDIA_URL }}{{ author.image }}">
-    {% endif %}
+{#    {% if author.image %}#}
+{#      <img src="{{ MEDIA_URL }}{{ author.image }}">#}
+{#    {% else %}#}
+{#      <img src="http://placehold.it/350x150" />#}
+{#    {% endif %}#}
+{#  #}
+
+    <div><img src="{{ author.image|get_image }}"></div>
+    <div><br /></div>
+    <div><img src="{{ author.image|get_image:'http://placehold.it/700x300' }}"></div>
+    <div><br /></div>
+    <div><img src="{{ author.image|get_image2 }}"></div>
   </div>
   <div class="row">
     <div class="column small-4">Email:</div>
