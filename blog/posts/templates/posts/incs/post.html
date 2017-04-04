@@ -1,9 +1,9 @@
-{% load post_word_count %}
+{% load post_word_count my_tags %}
 
 <h3><a href="{% url 'posts-detail' p.id %}">{{ post.title }}</a>
   <small>{{ post.created_at|timesince }}</small>
 </h3>
-<p>{{ post.description }}</p>
+<p>{{ post.description|safe }}</p>
 <div>
   Count: {{ post.description|my_word_count }}
 </div>
