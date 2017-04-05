@@ -14,7 +14,11 @@
 <!-- Start Top Bar -->
 <div class="top-bar">
   <div class="top-bar-left">
-    &nbsp;
+    {% if user.is_authenticated %}
+      Hello: {{ user.username }}
+      {% else %}
+      Hello guest
+    {% endif %}
   </div>
   <div class="top-bar-right">
     <ul class="menu">
