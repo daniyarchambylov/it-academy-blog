@@ -16,7 +16,7 @@
   <div class="top-bar-left">
     {% if user.is_authenticated %}
       Hello: {{ user.username }}
-      {% else %}
+    {% else %}
       Hello guest
     {% endif %}
   </div>
@@ -25,6 +25,12 @@
       <li><a href="{% url 'posts-index' %}">Posts</a></li>
       <li><a href="{% url 'posts-create' %}">Create new post</a></li>
       <li><a href="{% url 'posts-create-form' %}">Create new post with a form</a></li>
+      {% if user.is_authenticated %}
+        <li><a href="{% url 'core-signout' %}">Sign out</a></li>
+      {% else %}
+        <li><a href="{% url 'core-signin' %}">Sign in</a></li>
+        <li><a href="{% url 'core-signup' %}">Sign up</a></li>
+      {% endif %}
     </ul>
   </div>
 </div>

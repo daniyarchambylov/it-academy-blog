@@ -10,6 +10,7 @@ from django.views.decorators.http import require_POST
 from blog.core.decorators import is_anonymous
 
 
+@is_anonymous
 def signup(request):
     form = UserCreationForm(request.POST or None)
     if request.method == 'POST':
