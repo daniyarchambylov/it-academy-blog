@@ -8,11 +8,10 @@ from blog.authors.models import GENDER_CHOICES, Author
 
 class AddAuthorModelForm(forms.ModelForm):
     class Meta:
+        # FIX user creation with first_name, last_name, email
         model = Author
+
         fields = [
-            'first_name',
-            'last_name',
-            'email',
             'date_of_birth',
             'gender',
             'image',
@@ -75,7 +74,8 @@ class AddAuthorForm(forms.Form):
 class EditAuthorEmailModelForm(forms.ModelForm):
     class Meta:
         model = Author
-        fields = ['email']
+        # TODO: fix Edit email form
+        fields = '__all__'
 
 
 class EditAuthorEmailForm(forms.Form):
