@@ -8,7 +8,6 @@ from blog.posts.forms import PostForm, PostDeleteForm, EditPostForm, PostModelFo
 from blog.posts.models import Post
 
 
-@login_required
 def index(request):
     status = request.GET.get('status')
 

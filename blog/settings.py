@@ -55,6 +55,7 @@ if DEBUG:
     ]
 
 MIDDLEWARE = [
+    # 'blog.core.middleware.CheckHeader',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -62,6 +63,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'blog.core.middleware.UserAuthMiddleware',
 ]
 
 if DEBUG:
