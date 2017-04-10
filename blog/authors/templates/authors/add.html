@@ -12,7 +12,19 @@
       {{ field }}
     {% endfor %}
 
-    {% for field in form %}
+    {% for field in author_form %}
+      <div class="row">
+        <div class="column small-3">{{ field.label_tag }}</div>
+        <div class="column small-9">
+          {{ field }}
+          {% if field.errors %}
+          <div class="errors">{{ field.errors }}</div>
+        {% endif %}
+        </div>
+      </div>
+    {% endfor %}
+
+    {% for field in user_form %}
       <div class="row">
         <div class="column small-3">{{ field.label_tag }}</div>
         <div class="column small-9">

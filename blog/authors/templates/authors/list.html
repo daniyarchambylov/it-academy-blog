@@ -17,23 +17,25 @@
     </div>
   </form>
   {% for a in authors %}
-    <li>
-      <div class="row">
-        <div class="column small-2">Full name:</div>
-        <div class="column small-10"><a href="{% url 'authors-details' a.id %}">{{ a.get_full_name }}</a></div>
-      </div>
-      <div class="row">
-        <div class="column small-2">Email:</div>
-        <div class="column small-10">{{ a.email }}</div>
-      </div>
-      <div class="row">
-        <div class="column small-2">Date of birth:</div>
-        <div class="column small-10">{{ a.date_of_birth }}</div>
-      </div>
-      <div class="row">
-        <div class="column small-2">Gender:</div>
-        <div class="column small-10">{{ a.gender }}</div>
-      </div>
-    </li>
+    {% with user=a.user %}
+      <li>
+        <div class="row">
+          <div class="column small-2">Full name:</div>
+          <div class="column small-10"><a href="{% url 'authors-details' a.id %}">{{ user.get_full_name }}</a></div>
+        </div>
+        <div class="row">
+          <div class="column small-2">Email:</div>
+          <div class="column small-10">{{ user.email }}</div>
+        </div>
+        <div class="row">
+          <div class="column small-2">Date of birth:</div>
+          <div class="column small-10">{{ a.date_of_birth }}</div>
+        </div>
+        <div class="row">
+          <div class="column small-2">Gender:</div>
+          <div class="column small-10">{{ a.gender }}</div>
+        </div>
+      </li>
+    {% endwith %}
   {% endfor %}
 {% endblock contents %}

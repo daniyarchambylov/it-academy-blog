@@ -2,13 +2,16 @@ import datetime
 
 import re
 from django import forms
+from django.contrib.auth import get_user_model
 
 from blog.authors.models import GENDER_CHOICES, Author
 
 
+User = get_user_model()
+
+
 class AddAuthorModelForm(forms.ModelForm):
     class Meta:
-        # FIX user creation with first_name, last_name, email
         model = Author
 
         fields = [
@@ -23,6 +26,16 @@ class AddAuthorModelForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(AddAuthorModelForm, self).__init__(*args, **kwargs)
         self.fields['image'].required = True
+
+
+class UserModelForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = [
+            'first_name',
+            'last_name',
+            'email',
+        ]
 
 
 
@@ -73,32 +86,5 @@ class AddAuthorForm(forms.Form):
 
 class EditAuthorEmailModelForm(forms.ModelForm):
     class Meta:
-        model = Author
-        # TODO: fix Edit email form
-        fields = '__all__'
-
-
-class EditAuthorEmailForm(forms.Form):
-    author = forms.IntegerField(widget=forms.HiddenInput)
-    email = forms.EmailField()
-
-    def clean_author(self):
-        author = self.cleaned_data['author']
-        if Author.objects.filter(id=author).exists():
-            return author
-        raise forms.ValidationError('User: "{}" does not exist'.format(author))
-
-    def clean_email(self):
-        email = self.cleaned_data['email']
-        if Author.objects.filter(email=email).exists():
-            raise forms.ValidationError('Author with email: "{}" already exists'.format(email))
-        return email
-
-    def save(self):
-        cd = self.cleaned_data
-
-        author = Author.objects.get(id=cd['author'])
-        author.email = cd['email']
-        author.save()
-
-        return author
+        model = User
+        fields = ['email']

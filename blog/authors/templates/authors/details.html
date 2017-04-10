@@ -6,7 +6,7 @@
 {% endblock page_title %}
 
 {% block contents %}
-  <h1>{{ author.get_full_name }}</h1>
+  <h1>{{ author.user.get_full_name }}</h1>
 
   <div class="row">
 {#    {% if author.image %}#}
@@ -24,7 +24,7 @@
   </div>
   <div class="row">
     <div class="column small-4">Email:</div>
-    <div class="column small-8">{{ author.email }}</div>
+    <div class="column small-8">{{ author.user.email }}</div>
   </div>
   <div class="row">
     <div class="column small-4">Gender:</div>

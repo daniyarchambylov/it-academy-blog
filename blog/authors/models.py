@@ -15,8 +15,3 @@ class Author(models.Model):
     image = models.ImageField(upload_to='authors', blank=True, null=True)
     user = models.OneToOneField(settings.AUTH_USER_MODEL, blank=True, null=True)
 
-    def get_full_name(self):
-        return '{} {}'.format(self.first_name, self.last_name)
-
-    def __unicode__(self):
-        return self.get_full_name()

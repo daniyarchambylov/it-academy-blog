@@ -1,9 +1,8 @@
-from django.conf import settings
 from django.contrib import messages
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 
-from blog.authors.forms import AddAuthorForm, EditAuthorEmailForm, AddAuthorModelForm, EditAuthorEmailModelForm
+from blog.authors.forms import AddAuthorModelForm, EditAuthorEmailModelForm, UserModelForm
 from blog.authors.models import Author
 
 
@@ -18,26 +17,19 @@ def authors_list(request):
 
 
 def authors_add(request):
-    form = AddAuthorModelForm(request.POST or None, request.FILES or None)
+    author_form = AddAuthorModelForm(request.POST or None, request.FILES or None)
+    user_form = UserModelForm(request.POST or None)
 
     if request.method == 'POST':
-        if form.is_valid():
-            author = form.save()
-
+        if author_form.is_valid() and user_form.is_valid():
+            user = user_form.save()
+            author = author_form.save(commit=False)
+            author.user = user
+            author.save()
             messages.success(request, 'New author has been added: {}.'.format(author))
 
             return redirect(reverse('authors-list'))
-        else:
-            # print form.errors
-            # {
-            #   'email': ['error1', 'error2'],
-            #   'date_of_birth': ['error message'],
-            #   '__all__': ['errors',]
-            # }
-            default_error = 'Something went wrong. Please try again.'
-            error_message = form.errors['__all__'] if '__all__' in form.errors else default_error
-
-        messages.error(request, error_message, extra_tags='alert')
+        messages.error(request, 'Something went wrong. Please try again.', extra_tags='alert')
 
     return render(request, 'authors/add.html', locals())
 
@@ -51,11 +43,7 @@ def authors_details(request, author_id):
 
 def author_edit_email(request, author_id):
     author = get_object_or_404(Author, id=author_id)
-    form = EditAuthorEmailModelForm(request.POST or None, instance=author)
-
-    # form = EditAuthorEmailForm(request.POST or None, initial={
-    #     'author': author_id,
-    # })
+    form = EditAuthorEmailModelForm(request.POST or None, instance=author.user)
 
     if request.method == 'POST':
         if form.is_valid():
