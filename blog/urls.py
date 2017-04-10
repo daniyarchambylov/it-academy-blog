@@ -7,7 +7,7 @@ from blog import views
 from blog.core import views as core_views
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
+    url(r'^balalaika/', admin.site.urls),
     url(r'^authors/', include('blog.authors.urls')),
     url(r'^categories/', include('blog.categories.urls')),
     url(r'^test/messages/$', views.test_messages),
