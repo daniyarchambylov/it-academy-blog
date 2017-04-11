@@ -35,7 +35,11 @@
     <div class="column small-8">{{ author.date_of_birth }}</div>
   </div>
   <div id="author-{{ author.id }}">
-    <button data-author-id="{{ author.id }}" class="button primary display-username-button">Display username</button>
+    <button
+      data-url="{% url 'authors-get-username' author_id %}"
+      class="button primary display-username-button">
+      Display username
+    </button>
   </div>
   <div class="row">
     <p>Posts</p>
@@ -54,8 +58,8 @@
   <script>
     $('.display-username-button').on('click', function () {
         var $this = $(this);
-        var id = $this.data('author-id');
-        $.get('/authors/' + id + '/get-username/', function (res) {
+        var url = $this.data('url');
+        $.get(url, function (res) {
             $this.text(res.username);
         });
     });

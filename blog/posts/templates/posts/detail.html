@@ -47,32 +47,75 @@
       </li>
     </ul>
   </div>
+  <div class="row">
+    <input type="text" id="comment-text" class="column"/>
+    <input type="button" id="comment-btn" value="Comment"/>
+  </div>
+  <div class="row" id="comments">
+  </div>
 {% endblock contents %}
 
 {% block css %}
-  <link href="{% static 'css/post.css' %}" type="text/css" rel="stylesheet" />
+  <link href="{% static 'css/post.css' %}" type="text/css" rel="stylesheet"/>
 {% endblock css %}
 {% block js %}
   <script>
-    $('#change-status').on('click', function (e) {
-        e.preventDefault();
-        var $this = $(this);
-        var url = $this.attr('href');
-        var csrftoken = Cookies.get('csrftoken');
-        $.ajax(url, {
-            method: 'POST',
-            headers: {
-                'X-CSRFToken': csrftoken,
-            },
-            success: function (response) {
-                $this.text('Mark as ' + response.text);
+      $('#change-status').on('click', function (e) {
+          e.preventDefault();
+          var $this = $(this);
+          var url = $this.attr('href');
+          var csrftoken = Cookies.get('csrftoken');
+          $.ajax(url, {
+              method: 'POST',
+              headers: {
+                  'X-CSRFToken': csrftoken,
+              },
+              success: function (response) {
+                  $this.text('Mark as ' + response.text);
+              }
+          });
+      });
+
+      $('#deleteForm').ajaxForm(function () {
+          alert('Post has been deleted');
+          window.location = '/';
+      });
+
+      $('#comment-btn').on('click', function () {
+{#          $.ajax()#}
+          var response  = {
+              id: 1,
+              name: 'Test user',
+              email: 'example@example.com',
+          }
+
+          response.comment = $('#comment-text').val();
+
+          var $html = '<div class="row"><div class="collumn">' +
+                  '<div id="a-' + response.id + '" class="author-name">' + response.name + '</div>' +
+                  '<div class="author-email">' + response.email + '</div>' +
+                  '<div class="author-comment">' + response.comment + '</div>' +
+              '</div></div>'
+
+          $('#comments').append($html);
+      });
+  </script>
+
+  <script>
+  /*
+    $('#add-form').ajaxForm({
+        success: function (res) {
+            if (res.status === 'success') {
+                console.log(res.data);
+            } else {
+                $('#form-errors').html(res.errors);
             }
-        });
+        },
+        error: function () {
+            $('#form-errors').html('Unknown error');
+        }
     });
 
-    $('#deleteForm').ajaxForm(function () {
-        alert('Post has been deleted');
-        window.location = '/';
-    })
+    */
   </script>
 {% endblock js %}

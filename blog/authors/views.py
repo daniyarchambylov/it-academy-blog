@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.http.response import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
+from django.views.decorators.http import require_POST
 
 from blog.authors.forms import AddAuthorModelForm, EditAuthorEmailModelForm, UserModelForm
 from blog.authors.models import Author
@@ -33,6 +34,25 @@ def authors_add(request):
         messages.error(request, 'Something went wrong. Please try again.', extra_tags='alert')
 
     return render(request, 'authors/add.html', locals())
+
+
+@require_POST
+def create_author_ajax(request):
+    res = {}
+
+    form = AddAuthorModelForm(request.POST or None, request.FILES or None)
+    if form.is_valid():
+        user = form.save()
+        res['status'] = 'success'
+        res['data'] = {
+            'id': user.id,
+            'gender': user.gender,
+        }
+    else:
+        res['status'] = 'error'
+        res['errors'] = form.errors
+
+    return JsonResponse(res)
 
 
 def authors_details(request, author_id):
