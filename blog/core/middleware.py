@@ -24,5 +24,4 @@ class CheckHeader(MiddlewareMixin):
 
 
     def process_response(self, request, response):
-        print 'azsxdcfgh'
         return response
