@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.http.response import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.views.decorators.http import require_POST
@@ -52,7 +53,10 @@ def published_posts(request):
 def change_status(request, id):
     post = Post.objects.get(id=id)
     post.change_status()
-    return redirect(reverse('posts-detail', args=[id, ]))
+    text = 'piblished' if post.status == 'd' else 'draft'
+    return JsonResponse({
+        'text': text,
+    })
 
 # from django.views.decorators.http import require_POST, require_GET, require_http_methods,
 # @require_POST

@@ -69,12 +69,16 @@
   </div>
 </div>
 {#  {% include 'incs/pagination.html' %}#}
+<script src="{% static 'vendor/js.cookie.js' %}"></script>
 <script src="{% static 'vendor/jquery.js' %}"></script>
+<script src="{% static 'vendor/jquery.form.min.js' %}"></script>
 <script src="{% static 'vendor/what-input.js' %}"></script>
 <script src="{% static 'vendor/foundation/foundation.min.js' %}"></script>
 <script>
     $(document).foundation();
 </script>
 <script src="{% static 'js/script.js' %}"></script>
+{% block js %}
+{% endblock js %}
 </body>
 </html>

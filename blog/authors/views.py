@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.http.response import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 
@@ -53,3 +54,10 @@ def author_edit_email(request, author_id):
         else:
             messages.error(request, 'Something went wrong. Please try again.', extra_tags='alert')
     return render(request, 'authors/edit-email.html', locals())
+
+
+def get_username(request, author_id):
+    author = get_object_or_404(Author, pk=author_id)
+    return JsonResponse({
+        'username': author.user.username,
+    })

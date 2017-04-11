@@ -22,7 +22,7 @@
     </div>
     <ul>
       <li>
-        <a href="{% url 'posts-change-status' post.id %}">
+        <a href="{% url 'posts-change-status' post.id %}" id="change-status">
           Mark as
           {% if post.status == 'd' %}
             published
@@ -37,7 +37,7 @@
         </a>
       </li>
       <li>
-        <form method="post" action="{% url 'post-delete' post.id %}">
+        <form method="post" action="{% url 'post-delete' post.id %}" id="deleteForm">
           {% csrf_token %}
           {{ delete_form }}
           <div class="row">
@@ -52,3 +52,27 @@
 {% block css %}
   <link href="{% static 'css/post.css' %}" type="text/css" rel="stylesheet" />
 {% endblock css %}
+{% block js %}
+  <script>
+    $('#change-status').on('click', function (e) {
+        e.preventDefault();
+        var $this = $(this);
+        var url = $this.attr('href');
+        var csrftoken = Cookies.get('csrftoken');
+        $.ajax(url, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': csrftoken,
+            },
+            success: function (response) {
+                $this.text('Mark as ' + response.text);
+            }
+        });
+    });
+
+    $('#deleteForm').ajaxForm(function () {
+        alert('Post has been deleted');
+        window.location = '/';
+    })
+  </script>
+{% endblock js %}
