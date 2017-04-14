@@ -36,6 +36,18 @@ class MyUserManager(models.Manager):
         return self._create_user(phone, password, **extra_fields)
 
     def get_by_natural_key(self, username):
+
+        '''
+        Example: objects = MyUserManager()
+                 objects.get_by_natural_key('555000111')
+        Explanation:
+          The same as MyUser.objects.get()
+          1. **{ 'phone': '5550001111' }
+          2. phone='555000111
+          3. self.get(phone='555000111')
+          4. MyUser.objects.get(phone='555000111')
+        '''
+
         return self.get(**{self.model.USERNAME_FIELD: username})
 
 
