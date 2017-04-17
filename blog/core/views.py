@@ -16,7 +16,7 @@ def signup(request):
     if request.method == 'POST':
         if form.is_valid():
             user = form.save()
-            messages.success(request, 'New user has been created %s.' % user.username)
+            messages.success(request, 'New user has been created %s.' % user.phone)
         else:
             messages.error(request, 'Error', extra_tags='alert')
     return render(request, 'core/signup.html', locals())

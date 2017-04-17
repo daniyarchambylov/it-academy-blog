@@ -79,5 +79,5 @@ def author_edit_email(request, author_id):
 def get_username(request, author_id):
     author = get_object_or_404(Author, pk=author_id)
     return JsonResponse({
-        'username': author.user.username,
+        'username': author.user.phone,
     })
