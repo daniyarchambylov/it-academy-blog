@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'blog.posts',
     'blog.categories',
     'blog.myath',
+    'blog.cbv',
 ]
 
 

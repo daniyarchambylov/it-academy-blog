@@ -14,6 +14,7 @@ urlpatterns = [
     url(r'^sign-in/$', core_views.signin, name='core-signin'),
     url(r'^sign-up/$', core_views.signup, name='core-signup'),
     url(r'^sign-out/$', core_views.signout, name='core-signout'),
+    url(r'^cbv/', include('blog.cbv.urls')),
     url(r'^', include('blog.posts.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
