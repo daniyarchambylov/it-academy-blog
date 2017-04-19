@@ -3,6 +3,7 @@ from blog.posts import views
 
 urlpatterns = [
     url(r'^$', views.index, name='posts-index'),
+    url(r'^count/$', views.count_posts, name='posts-count'),
     url(r'^details/(?P<id>\d+)/$', views.post_detail, name='posts-detail'),
     url(r'^draft/$', views.draft_posts, name='posts-draft'),
     url(r'^published/$', views.published_posts, name='posts-published'),

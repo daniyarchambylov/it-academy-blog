@@ -1,4 +1,4 @@
-{% load static %}
+{% load static i18n %}
 
 <!DOCTYPE html>
 <html lang="en" class="no-js">
@@ -15,16 +15,25 @@
 <div class="top-bar">
   <div class="top-bar-left">
     {% if user.is_authenticated %}
-      Hello: {{ user.phone }}
+      {% blocktrans with phone=user.phone %}
+        <h2>
+          Hello: {{ phone }}
+        </h2>
+      {% endblocktrans %}
     {% else %}
-      Hello guest
+      {% trans 'Hello guest' %}
     {% endif %}
   </div>
   <div class="top-bar-right">
     <ul class="menu">
-      <li><a href="{% url 'posts-index' %}">Posts</a></li>
-      <li><a href="{% url 'posts-create' %}">Create new post</a></li>
-      <li><a href="{% url 'posts-create-form' %}">Create new post with a form</a></li>
+      {% get_available_languages as available_languages %}
+      {% get_language_info_list for available_languages as langs %}
+      {% for lang in langs %}
+        <li><a href="/{{ lang.code }}{{ request.get_full_path|slice:'3:' }}">{{ lang.name_translated }}</a></li>
+      {% endfor %}
+      <li><a href="{% url 'posts-index' %}">{% trans 'Posts' %}</a></li>
+      <li><a href="{% url 'posts-create' %}">{% trans 'Create new post' %}</a></li>
+      <li><a href="{% url 'posts-create-form' %}">{% trans 'Create new post with a form' %}</a></li>
       {% if user.is_authenticated %}
         <li><a href="{% url 'core-signout' %}">Sign out</a></li>
       {% else %}
@@ -44,7 +53,7 @@
 
 <div class="row" id="content">
   <div class="medium-8 columns">
-{#  {% lorem %}#}
+    {#  {% lorem %}#}
     {% if messages %}
       <ul class="messages">
         {% for message in messages %}

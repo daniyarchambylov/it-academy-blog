@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block page_title %}
+  Posts
+{% endblock page_title %}
+{% block contents %}
+  {{ text }}
+{% endblock contents %}
+{% block css %}
+  <style>
+    .blog-post {
+      margin: 20px 0;
+      border-bottom: 1px solid #cccccc;
+    }
+    .blog-post:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+    }
+  </style>
+{% endblock css %}

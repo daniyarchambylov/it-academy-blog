@@ -58,6 +58,7 @@ if DEBUG:
 
 MIDDLEWARE = [
     # 'blog.core.middleware.CheckHeader',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -135,7 +136,16 @@ AUTH_PASSWORD_VALIDATORS = [] if DEBUG else [
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en'
+
+LANGUAGES = (
+    ('en', 'English'),
+    ('ru', 'Russian'),
+)
+
+LOCALE_PATHS = [
+    os.path.join(SRC_DIR, 'locale'),
+]
 
 TIME_ZONE = 'UTC'
 

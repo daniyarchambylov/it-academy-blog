@@ -1,8 +1,8 @@
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
 from django.http.response import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
+from django.utils.translation import ungettext
 from django.views.decorators.http import require_POST
 
 from blog.posts.forms import PostForm, PostDeleteForm, EditPostForm, PostModelForm, FilterPostForm
@@ -159,3 +159,13 @@ def filter_posts_view(request):
     if form.is_valid():
         posts = form.filter(posts)
     return render(request, 'posts/filter_posts.html', locals())
+
+
+def count_posts(request):
+    count = 53
+    text = ungettext(
+        'There is %(count)d post',
+        'There are %(count)d posts',
+        count
+    ) % { 'count': count }
+    return render(request, 'posts/count_posts.html', locals())
